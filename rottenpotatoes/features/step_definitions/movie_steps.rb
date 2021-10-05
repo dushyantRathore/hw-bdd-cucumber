@@ -9,7 +9,8 @@ Given /the following movies exist/ do |movies_table|
 end
 
 Then /(.*) seed movies should exist/ do | n_seeds |
-  Movie.count.should be n_seeds.to_i
+  # Movie.count.should be n_seeds.to_i
+  expect(Movie.count).to eq n_seeds.to_i
 end
 
 # Make sure that one string (regexp) occurs before or after another one
@@ -18,7 +19,8 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
-  page.body.index(e1).should be < page.body.index(e2)
+  # page.body.index(e1).should be < page.body.index(e2)
+  expect(page.body.index(e1)).to be < page.body.index(e2)
 end
 
 # Make it easier to express checking or unchecking several boxes at once
@@ -42,5 +44,6 @@ end
 
 Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
-  Movie.count.should be page.all("table#movies tbody tr").length
+  # Movie.count.should be page.all("table#movies tbody tr").length
+  expect(Movie.count).to eq page.all("table#movies tbody tr").length
 end
